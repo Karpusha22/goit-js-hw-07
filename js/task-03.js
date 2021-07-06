@@ -12,10 +12,20 @@ const images = [
     alt: 'Group of Horses Running',
   },
 ];
+const listRef = document.querySelector('#gallery');
 
-const ulGallery = document.querySelector("#gallery");
-images.forEach(image => {
-  ulGallery.insertAdjacentHTML(
-    "afterbegin",
-    `<li> <img src=${image.url} alt="${image.alt}"></li>`);
-});
+const insertGallery = array => {
+  const makeItemsGallery = array =>
+    array
+      .map(({ url, alt }) => {
+        return `<li> <img src="${url}" alt="${alt}"> </li>`;
+      })
+      .join('');
+  listRef.insertAdjacentHTML('afterbegin', makeItemsGallery(array));
+  listRef.classList.add('list', 'js-gallery__list');
+  listRef
+    .querySelectorAll('li')
+    .forEach(item => item.classList.add('js-gallery__item'));
+};
+
+insertGallery(images);
